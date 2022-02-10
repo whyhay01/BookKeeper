@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -44,11 +44,12 @@ class HomeFragment : Fragment() {
         }
 
         //getting all the books
-        viewModel.getAllBooks().observe(requireActivity(),Observer{books ->
-            books?.let {
-               setBooks(books)
+        viewModel.getAllBooks().observe(requireActivity()) { it
+            it?.let {
+                it
+                setBooks(it)
             }
-        })
+        }
 
     }
 
@@ -87,15 +88,18 @@ class HomeFragment : Fragment() {
 
         //Setting the searchResultFragment for result
 
-//        val  componentName = ComponentName(requireActivity(),SearchResultFragment::class.java)
-        val searchableInfo : SearchableInfo = searchManager.getSearchableInfo(activity!!.componentName)
+//        val  componentName = ComponentNam
+//        e(requireActivity(),SearchResultFragment::class.java)
+        val searchableInfo : SearchableInfo = searchManager.getSearchableInfo(requireActivity().componentName)
         searchView?.setSearchableInfo(searchableInfo)
 
 
         searchView?.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 Log.i(TAG,"Query TextSubmit: $query")
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchResultFragment("$query"))
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchResultFragment(
+                    query
+                ))
                 return false
             }
             override fun onQueryTextChange(newText: String): Boolean {
