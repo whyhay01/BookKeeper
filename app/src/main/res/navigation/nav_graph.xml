@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.bookkeeper.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/to_newBookFragment"
+            app:destination="@id/newBookFragment" />
+        <action
+            android:id="@+id/to_editBookFragment"
+            app:destination="@id/editBookFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newBookFragment"
+        android:name="com.example.bookkeeper.NewBookFragment"
+        android:label="fragment_new_book"
+        tools:layout="@layout/fragment_new_book" />
+    <fragment
+        android:id="@+id/editBookFragment"
+        android:name="com.example.bookkeeper.EditBookFragment"
+        android:label="EditBookFragment"
+        tools:layout="@layout/edit_book_fragement">
+        <argument
+            android:name="book"
+            app:argType="com.example.bookkeeper.RoomDB.Book" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.example.bookkeeper.SearchResultFragment"
+        android:label="SearchResultFragment"
+        tools:layout="@layout/fragment_home">
+        <argument
+            android:name="stringQuery"
+            app:argType="string"
+            android:defaultValue="null" />
+        <action
+            android:id="@+id/to_editBookFragment"
+            app:destination="@id/editBookFragment" />
+    </fragment>
+</navigation>
